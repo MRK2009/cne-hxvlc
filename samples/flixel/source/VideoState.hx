@@ -17,7 +17,7 @@ class VideoState extends FlxState
 
 	override function create():Void
 	{
-		FlxG.autoPause = false;
+		video.autoPause = false;
 
 
 		video = new FlxVideoSprite(0, 0);
