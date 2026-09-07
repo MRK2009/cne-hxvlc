@@ -10,6 +10,9 @@ using StringTools;
 /** A wrapper class for displaying video files in HaxeFlixel using the `Video` class. */
 class FlxInternalVideo extends hxvlc.openfl.Video
 {
+	/** Whether the video should automatically pause when focus is lost. */
+	public var autoPause:Bool = FlxG.autoPause;
+	
 	/** The volume adjustment. */
 	public var volumeAdjust(default, set):Float = 1.0;
 
@@ -23,11 +26,14 @@ class FlxInternalVideo extends hxvlc.openfl.Video
 
 		if (loaded)
 		{
-			if (!FlxG.signals.focusGained.has(onFocusGained))
-				FlxG.signals.focusGained.add(onFocusGained);
+			if (autoPause)
+		    {
+			    if (!FlxG.signals.focusGained.has(onFocusGained))
+				    FlxG.signals.focusGained.add(onFocusGained);
 
-			if (!FlxG.signals.focusLost.has(onFocusLost))
-				FlxG.signals.focusLost.add(onFocusLost);
+			    if (!FlxG.signals.focusLost.has(onFocusLost))
+				    FlxG.signals.focusLost.add(onFocusLost);
+		    }
 
 			#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"))
 			if (!FlxG.sound.onVolumeChange.has(onVolumeChange))
@@ -50,11 +56,14 @@ class FlxInternalVideo extends hxvlc.openfl.Video
 
 		if (loaded)
 		{
-			if (!FlxG.signals.focusGained.has(onFocusGained))
-				FlxG.signals.focusGained.add(onFocusGained);
+			if (autoPause)
+		    {
+			    if (!FlxG.signals.focusGained.has(onFocusGained))
+				    FlxG.signals.focusGained.add(onFocusGained);
 
-			if (!FlxG.signals.focusLost.has(onFocusLost))
-				FlxG.signals.focusLost.add(onFocusLost);
+			    if (!FlxG.signals.focusLost.has(onFocusLost))
+				    FlxG.signals.focusLost.add(onFocusLost);
+		    }
 
 			#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"))
 			if (!FlxG.sound.onVolumeChange.has(onVolumeChange))
@@ -73,12 +82,15 @@ class FlxInternalVideo extends hxvlc.openfl.Video
 	@:inheritDoc(hxvlc.openfl.Video.dispose)
 	public override function dispose():Void
 	{
-		if (FlxG.signals.focusGained.has(onFocusGained))
-			FlxG.signals.focusGained.remove(onFocusGained);
+		if (autoPause)
+		{
+			if (FlxG.signals.focusGained.has(onFocusGained))
+				FlxG.signals.focusGained.remove(onFocusGained);
 
-		if (FlxG.signals.focusLost.has(onFocusLost))
-			FlxG.signals.focusLost.remove(onFocusLost);
-
+			if (FlxG.signals.focusLost.has(onFocusLost))
+				FlxG.signals.focusLost.remove(onFocusLost);
+		}
+		
 		#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"))
 		if (FlxG.sound.onVolumeChange.has(onVolumeChange))
 			FlxG.sound.onVolumeChange.remove(onVolumeChange);
