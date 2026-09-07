@@ -106,7 +106,7 @@ class FlxInternalVideo extends hxvlc.openfl.Video
 	private function onFocusGained():Void
 	{
 		#if !mobile
-		if (!FlxG.autoPause)
+		if (!autoPause)
 			return;
 		#end
 
@@ -122,7 +122,7 @@ class FlxInternalVideo extends hxvlc.openfl.Video
 	private function onFocusLost():Void
 	{
 		#if !mobile
-		if (!FlxG.autoPause)
+		if (!autoPause)
 			return;
 		#end
 
